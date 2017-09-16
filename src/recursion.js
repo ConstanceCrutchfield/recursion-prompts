@@ -129,14 +129,17 @@ var reverse = function(string, newString = '', i = string.length-1) {
   // if not equal return false
 //recures with first and last letter removed    
 // 10. Write a function that determines if a string is a palindrome.
-var palindrome = function(string, newString = '', i = 0) {//should ignore spaces and case
-    console.log(string, newString);
-    string = string.toLowerCase().split(' ').join('');
-    //string = string.toLowerCase().replace(/\s/g,''); //max callstack exceeded
-    if (newString.length === string.length){
-        return (newString === string) ? true : false;
-    }           //also max callstack exceeded                           
-    return palindrome(string, newString.concat(string[i]), --i);
+var palindrome = function(string, result = true) {
+    string = string.split(' ').join('');
+       if (string.length <=1){
+           return result;
+       } 
+       var a = string[0];
+       var b = string[string.length-1];
+       if(a.toLowerCase() !== b.toLowerCase()){
+            result = false;
+        }
+    return palindrome(string.substring(1, string.length-1), result);
 };
 // 11. Write a function that returns the remainder of x divided by y without using the
 // modulo (%) operator.
