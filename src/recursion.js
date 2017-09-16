@@ -542,7 +542,7 @@ console.log(numToText("I have 5 dogs and 6 ponies"));
 // *** EXTRA CREDIT ***
 
 // 36. Return the number of times a tag occurs in the DOM.
-var tagCount = function(tag, node) {
+var tagCount = function(tag, node =[]) {
     console.log(node)
 };
 
@@ -552,8 +552,8 @@ var tagCount = function(tag, node) {
 
 var binarySearch = function(array, target, min = 0, max = array.length-1) {
    
-    if(max >= min){
-        var mid = Math.floor(min + (max - min)/2, 10);
+    if(max >= min){//array.length
+        var mid = parseInt(min + (max - min)/2);
         if(array[mid] === target){
             return mid;
         }
@@ -571,4 +571,30 @@ var binarySearch = function(array, target, min = 0, max = array.length-1) {
 // Sample array:  [34,7,23,32,5,62]
 // Sample output: [5,7,23,32,34,62]
 var mergeSort = function(array) {
+    var merge = function(left, right, result =[]){
+        while(left.length && right.length){
+            if (left[0] <= right[0]) {
+            result.push(left.shift());
+            } 
+            else {
+            result.push(right.shift());
+            }
+        }
+        while (left.length){
+            result.push(left.shift());
+        }
+        while (right.length){
+            result.push(right.shift());
+        }
+        return result;
+    };
+    
+    if(array.length < 2){
+        return array;
+    }
+    var mid = parseInt(array.length/2);
+    var left = array.slice(0, mid);
+    var right = array.slice(mid, array.length);
+    
+    return merge(mergeSort(left), mergeSort(right));
 };
