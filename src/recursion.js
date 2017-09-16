@@ -487,7 +487,7 @@ var augmentElements = function(array, aug) {
         item.push(aug);
         return;
     });
-    return array;
+    return array;//not recursive
 };
 
 // 33. Reduce a series of zeroes to a single 0.
@@ -543,13 +543,28 @@ console.log(numToText("I have 5 dogs and 6 ponies"));
 
 // 36. Return the number of times a tag occurs in the DOM.
 var tagCount = function(tag, node) {
+    console.log(node)
 };
 
 // 37. Write a function for binary search.
 // Sample array:  [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
 // console.log(binarySearch(5)) will return '5'
 
-var binarySearch = function(array, target, min, max) {
+var binarySearch = function(array, target, min = 0, max = array.length-1) {
+   
+    if(max >= min){
+        var mid = Math.floor(min + (max - min)/2, 10);
+        if(array[mid] === target){
+            return mid;
+        }
+        if(array[mid] < target){
+            return binarySearch(array, target, mid+1, max);
+        }
+        if (array[mid] > target){
+            return binarySearch(array, target, min, mid-1);
+        }
+    }
+    return null;
 };
 
 // 38. Write a merge sort function.
