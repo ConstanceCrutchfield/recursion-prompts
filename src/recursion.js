@@ -147,6 +147,28 @@ var palindrome = function(string, result = true) {
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function(x, y) {
+    if(x < 0 && y < 0){
+      x = x - x - x;
+      y = y - y - y;
+    }if (y > x){
+      var z = x;
+      x = y;
+      y = z;
+    }
+    if(y === 1){
+        return 0;
+    }
+    if(y === 0 ){
+        return undefined;
+    }
+    if(x -y === 0 ){
+        return 0;
+    } 
+     if(x - y < 0){
+        return x;
+    } x = (x - y);
+   
+    return modulo(x, y);
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator  or
@@ -171,7 +193,47 @@ var multiply = function(x, y, total = 0) {
 
 // 13. Write a function that divides two numbers without using the / operator  or
 // JavaScript's Math object.
-var divide = function(x, y) {
+var divide = function(x, y, result = 0) {
+    if(x < 0 && y < 0){
+      x = x - x - x;
+      y = y - y - y;
+    }
+    if(y === 0 && x === 0){
+        return NaN;
+    }
+    if(y === 0 || x === 0){
+        return 0;
+    }
+    else if(y < 0){
+        if(x + y < 0){
+            return result;
+        }
+        if((x + y) >= 0 && (x + y) < (y+y+y)){
+       return result; 
+        }
+        else {
+            return divide(x+y, y, result - 1) ;
+        }
+    }
+    else if (x < 0){
+        if(x + y < 0){
+            return result;
+        }
+        if((x + y) >= 0 && (x + y) < y){
+            return result;
+        } else {
+            return divide(x+y, y, result - 1) ;
+        }
+    }
+    else if (x - y < 0){
+        return result;
+    }
+    else if((x - y) >= 0 && (x - y) < y){
+       return result + 1; 
+    }
+    else{
+        return divide(x-y, y, result + 1) ;
+    }
 };
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers.  The GCD of two
@@ -187,7 +249,7 @@ var gcd = function(x, y) {
 // compareStr('house', 'houses') // false
 // compareStr('', '') // true
 // compareStr('tomato', 'tomato') // true
-var compareStr = function(str1, str2, compare = true, i = 0) {
+var compareStr = function(str1, str2, compare = true, i = 0) {//do this one like paindrome
    if(str1.length !== str2.length){
         return compare = false;
     }if (str1[i] !== str2[i]){
