@@ -54,12 +54,15 @@ var isEven = function(n) {
 // sumBelow(10); // 45
 // sumBelow(7); // 21
 var sumBelow = function(n, result = 0) {
+    // if(n === 0){
+    //     return 0;
+    // } 
     if (n === 0){
         return result;
     } if (n > 0){
-        return sumBelow(n-1, result + n);//how to exclude original n value???
+        return sumBelow(n-1, result + n-1);//how to exclude original n value???
     } if (n < 0){
-        return sumBelow(n+1, result + n);
+        return sumBelow(n+1, result + n+1);
     }
 };
 
@@ -543,7 +546,7 @@ console.log(numToText("I have 5 dogs and 6 ponies"));
 
 // 36. Return the number of times a tag occurs in the DOM.
 var tagCount = function(tag, node =[]) {
-    console.log(node)
+    return document.querySelectorAll(tag.toString()).length;
 };
 
 // 37. Write a function for binary search.
