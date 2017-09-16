@@ -54,13 +54,10 @@ var isEven = function(n) {
 // sumBelow(10); // 45
 // sumBelow(7); // 21
 var sumBelow = function(n, result = 0) {
-    // if(n === 0){
-    //     return 0;
-    // } 
     if (n === 0){
         return result;
     } if (n > 0){
-        return sumBelow(n-1, result + n-1);//how to exclude original n value???
+        return sumBelow(n-1, result + n-1);
     } if (n < 0){
         return sumBelow(n+1, result + n+1);
     }
@@ -111,7 +108,7 @@ var powerOfTwo = function(n) { //says max callstack exceeded but works in jsbin?
     if (n === 1){
         return true;
     }
-    if (n % 1 !== 0){
+    if (n < 1){
         return false;
     }
     return powerOfTwo( n / 2);
@@ -149,7 +146,7 @@ var palindrome = function(string, result = true) {
 // modulo(5,2) // 1
 // modulo(17,5) // 2
 // modulo(22,6) // 4
-var modulo = function(x, y) {
+var modulo = function(x, y) {//omg
     if(x < 0 && y < 0){
       x = x - x - x;
       y = y - y - y;
@@ -350,12 +347,13 @@ var countValuesInObj = function(obj, value, num = 0) {
 // 23. Find all keys in an object (and nested objects) by a provided name and rename
 // them to a provided new name while preserving the value stored at that key.
 var replaceKeysInObj = function(obj, key, newKey) {
+   
      for (var prop in obj) {
         if (prop === key) {
             prop = newKey;
         }
         if (typeof obj[prop] === 'object') {
-            replaceKeysInObj(obj[prop], key, newKey);
+            replaceKeysInObj(obj[prop], key, newKey);//this case does not reassign key
         }
     }
     return obj;
