@@ -146,28 +146,38 @@ var palindrome = function(string, result = true) {
 // modulo(5,2) // 1
 // modulo(17,5) // 2
 // modulo(22,6) // 4
-var modulo = function(x, y) {//omg
-    if(x < 0 && y < 0){
-      x = x - x - x;
-      y = y - y - y;
-    }if (y > x){
-      var z = x;
-      x = y;
-      y = z;
-    }
-    if(y === 1){
+var modulo = function(x, y) {
+
+    console.log(x, y);
+    if(y === 1 || x === y ){
         return 0;
     }
     if(y === 0 ){
         return undefined;
     }
-    if(x -y === 0 ){
-        return 0;
-    } 
-     if(x - y < 0){
-        return x;
-    } x = (x - y);
-   
+    if(x > 0 && y < 0){
+        if(x + y < 0){
+            return x;
+        }
+        x = x + y;
+    } if(x < 0 && y > 0){
+         if(x + y > 0){
+            return x;
+        }
+        x = x + y;
+    }
+    if(x > 0 && y > 0){
+        if(x - y < 0){
+            return x;
+        }
+        x = (x - y);
+    }
+    if(x < 0 && y < 0){
+         if(x - y > 0){
+            return x;
+        }
+        x = (x - y);
+    }
     return modulo(x, y);
 };
 
@@ -346,16 +356,16 @@ var countValuesInObj = function(obj, value, num = 0) {
 
 // 23. Find all keys in an object (and nested objects) by a provided name and rename
 // them to a provided new name while preserving the value stored at that key.
-var replaceKeysInObj = function(obj, key, newKey) {
-   
+var replaceKeysInObj = function(obj, key, newKey) {//all 'e' keys replaced with 'f'
      for (var prop in obj) {
         if (prop === key) {
-            prop = newKey;
+            obj[newKey] = obj[prop];
+            delete obj[prop];
         }
         if (typeof obj[prop] === 'object') {
-            replaceKeysInObj(obj[prop], key, newKey);//this case does not reassign key
+            replaceKeysInObj(obj[prop], key, newKey);
         }
-    }
+    } 
     return obj;
 };
 
@@ -483,12 +493,14 @@ var compress = function(list, newList = [], i=0) {
 // 32. Augument every element in a list with a new value where each element is an array
 // itself.
 // Example: augmentElements([[],[3],[7]], 5); // [[5],[3,5],[7,5]]
-var augmentElements = function(array, aug) {
-    array.forEach(item => {
-        item.push(aug);
-        return;
-    });
-    return array;//not recursive
+var augmentElements = function(array, aug, i = 0) {
+    if(i === array.length){
+        return array;
+    } 
+    else {
+        array[i].push(aug);
+    }
+    return augmentElements(array, aug, ++i);
 };
 
 // 33. Reduce a series of zeroes to a single 0.
